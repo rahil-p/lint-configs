@@ -1,0 +1,48 @@
+module.exports = {
+	parser: '@typescript-eslint/parser',
+	extends: [
+		'plugin:@typescript-eslint/eslint-recommended',
+		'plugin:@typescript-eslint/recommended',
+		'plugin:@typescript-eslint/recommended-requiring-type-checking',
+	],
+	rules: {
+		'@typescript-eslint/consistent-type-imports': [1, { prefer: 'type-imports', disallowTypeAnnotations: true }],
+		'@typescript-eslint/member-ordering': 1,
+		'@typescript-eslint/no-require-imports': 1,
+		'@typescript-eslint/no-shadow': 1,
+		'@typescript-eslint/no-unnecessary-boolean-literal-compare': 1,
+		'@typescript-eslint/no-unnecessary-condition': 1,
+		'@typescript-eslint/no-unnecessary-qualifier': 1,
+		'@typescript-eslint/no-unnecessary-type-arguments': 1,
+		'@typescript-eslint/no-unnecessary-type-assertion': 1,
+		'@typescript-eslint/no-unnecessary-type-constraint': 1,
+		'@typescript-eslint/no-unsafe-assignment': 0,
+		'@typescript-eslint/no-unsafe-call': 0,
+		'@typescript-eslint/no-unsafe-member-access': 0,
+		'@typescript-eslint/no-unused-vars': [2, { argsIgnorePattern: '^_.*' }],
+		'@typescript-eslint/no-use-before-define': 1,
+		'@typescript-eslint/no-useless-constructor': 1,
+		'@typescript-eslint/prefer-nullish-coalescing': 1,
+		'@typescript-eslint/prefer-optional-chain': 1,
+		'@typescript-eslint/quotes': [1, 'single', { avoidEscape: true }],
+		'import/prefer-default-export': 0,
+		'import/named': 0,
+		'jsdoc/no-defaults': 1,
+		'jsdoc/no-types': 1,
+		'no-shadow': 0,
+		'no-use-before-define': 0,
+		'no-useless-constructor': 0,
+	},
+	settings: {
+		'import/parsers': {
+			'@typescript-eslint/parser': ['.ts', '.tsx'],
+		},
+		jsdoc: {
+			mode: 'typescript',
+			tagNamePreference: {
+				param: 'param',
+				returns: 'returns',
+			},
+		},
+	},
+};

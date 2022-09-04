@@ -1,0 +1,30 @@
+{
+	"name": "@rahil-p/eslint-config-test",
+	"version": "0.1.0",
+	"description": "Mocha + Chai ESLint rules",
+	"main": "index.js",
+	"homepage": "https://github.com/rahil-p/lint-configs/tree/main/dev/eslint-config-test#readme",
+	"repository": "rahil-p/lint-configs.git",
+	"bugs": "https://github.com/rahil-p/lint-configs/issues",
+	"author": {
+		"name": "Rahil Patel",
+		"url": "https://github.com/rahil-p"
+	},
+	"license": "MIT",
+	"scripts": {
+		"lint": "yarn exec eslint --fix ."
+	},
+	"dependencies": {
+		"eslint-plugin-chai-friendly": "^0.7.2",
+		"eslint-plugin-mocha": "^10.0.4"
+	},
+	"peerDependencies": {
+		"eslint": "^8.14.0"
+	},
+	"keywords": [
+		"eslint",
+		"test",
+		"mocha",
+		"chai"
+	]
+}

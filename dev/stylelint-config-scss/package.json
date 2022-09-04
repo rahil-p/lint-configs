@@ -1,0 +1,31 @@
+{
+	"name": "@rahil-p/stylelint-config-scss",
+	"version": "0.1.0",
+	"description": "Sass (SCSS) StyleLint rules",
+	"main": "index.js",
+	"homepage": "https://github.com/rahil-p/lint-configs/tree/main/dev/stylelint-config-scss#readme",
+	"repository": "rahil-p/lint-configs.git",
+	"bugs": "https://github.com/rahil-p/lint-configs/issues",
+	"author": {
+		"name": "Rahil Patel",
+		"url": "https://github.com/rahil-p"
+	},
+	"license": "MIT",
+	"scripts": {
+		"lint": "yarn exec eslint --fix ."
+	},
+	"dependencies": {
+		"stylelint-config-prettier": "^9.0.3",
+		"stylelint-config-recommended-scss": "^6.0.0",
+		"stylelint-prettier": "^2.0.0"
+	},
+	"peerDependencies": {
+		"stylelint": "^14.8.0"
+	},
+	"keywords": [
+		"stylelint",
+		"style",
+		"scss",
+		"sass"
+	]
+}

@@ -1,0 +1,28 @@
+{
+	"name": "@rahil-p/stylelint-config-base",
+	"version": "0.1.0",
+	"description": "Standard StyleLint rules",
+	"main": "index.js",
+	"homepage": "https://github.com/rahil-p/lint-configs/tree/main/dev/stylelint-config-base#readme",
+	"repository": "rahil-p/lint-configs.git",
+	"bugs": "https://github.com/rahil-p/lint-configs/issues",
+	"author": {
+		"name": "Rahil Patel",
+		"url": "https://github.com/rahil-p"
+	},
+	"license": "MIT",
+	"scripts": {
+		"lint": "yarn exec eslint --fix ."
+	},
+	"dependencies": {
+		"stylelint-config-recess-order": "^3.0.0"
+	},
+	"peerDependencies": {
+		"stylelint": "^14.8.0"
+	},
+	"keywords": [
+		"stylelint",
+		"style",
+		"css"
+	]
+}

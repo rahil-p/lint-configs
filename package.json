@@ -1,0 +1,114 @@
+{
+	"name": "lint-configs",
+	"version": "0.1.0",
+	"description": "Configurations for ESLint and StyleLint",
+	"homepage": "https://github.com/rahil-p/lint-configs#readme",
+	"repository": "rahil-p/lint-configs.git",
+	"bugs": "https://github.com/rahil-p/lint-configs/issues",
+	"author": {
+		"name": "Rahil Patel",
+		"url": "https://github.com/rahil-p"
+	},
+	"license": "MIT",
+	"packageManager": "yarn@3.2.3",
+	"workspaces": [
+		"dev/*"
+	],
+	"scripts": {
+		"lint": "yarn run lint:syncpack && yarn run lint:code",
+		"lint:code": "yarn workspaces foreach --exclude lint-configs ${args:-} run lint",
+		"lint:syncpack": "syncpack format",
+		"list": "yarn workspaces foreach --exclude lint-configs --parallel ${args:-} node -e \"const p = require('./package.json'); console.log(JSON.stringify({name: p.name, version: p.version, location: path.relative('$(pwd)', process.cwd()), private: !!p.private}));\" | sed 's/.*{/{/' | grep '^{' | jq -s"
+	},
+	"devDependencies": {
+		"@rahil-p/eslint-config-base": "workspace:^",
+		"@rahil-p/eslint-config-test": "workspace:^",
+		"@rahil-p/eslint-config-typescript": "workspace:^",
+		"depcheck": "^1.4.3",
+		"eslint": "^8.14.0",
+		"prettier": "^2.6.2",
+		"syncpack": "^6.2.1",
+		"typescript": "^4.7.4",
+		"v8-compile-cache": "^2.3.0"
+	},
+	"eslintConfig": {
+		"root": true,
+		"env": {
+			"es6": true,
+			"node": true
+		},
+		"extends": [
+			"@rahil-p/eslint-config-base"
+		],
+		"ignorePatterns": [
+			"**/build/**/*",
+			"**/dist/**/*"
+		],
+		"overrides": [
+			{
+				"files": [
+					"**/*.ts"
+				],
+				"extends": [
+					"@rahil-p/eslint-config-base",
+					"@rahil-p/eslint-config-typescript"
+				],
+				"parserOptions": {
+					"project": "./tsconfig.base.json"
+				}
+			},
+			{
+				"files": [
+					"**/*.tsx"
+				],
+				"extends": [
+					"@rahil-p/eslint-config-base",
+					"@rahil-p/eslint-config-typescript",
+					"@rahil-p/eslint-config-react"
+				]
+			}
+		]
+	},
+	"syncpack": {
+		"dev": true,
+		"peer": true,
+		"prod": true,
+		"resolutions": true,
+		"indent": "\t",
+		"sortAz": [
+			"scripts",
+			"resolutions",
+			"dependencies",
+			"optionalDependencies",
+			"peerDependencies",
+			"devDependencies",
+			"protobufDependencies"
+		],
+		"sortFirst": [
+			"name",
+			"version",
+			"description",
+			"type",
+			"main",
+			"files",
+			"bin",
+			"homepage",
+			"repository",
+			"bugs",
+			"author",
+			"contributors",
+			"license",
+			"packageManager",
+			"private",
+			"publishConfig",
+			"workspaces",
+			"scripts",
+			"resolutions",
+			"dependencies",
+			"optionalDependencies",
+			"peerDependencies",
+			"devDependencies",
+			"protobufDependencies"
+		]
+	}
+}

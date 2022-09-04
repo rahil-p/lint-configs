@@ -1,0 +1,29 @@
+{
+	"name": "@rahil-p/stylelint-config-js",
+	"version": "0.1.0",
+	"description": "CSS-in-JS StyleLint rules",
+	"main": "index.js",
+	"homepage": "https://github.com/rahil-p/lint-configs/tree/main/dev/stylelint-config-js#readme",
+	"repository": "rahil-p/lint-configs.git",
+	"bugs": "https://github.com/rahil-p/lint-configs/issues",
+	"author": {
+		"name": "Rahil Patel",
+		"url": "https://github.com/rahil-p"
+	},
+	"license": "MIT",
+	"scripts": {
+		"lint": "yarn exec eslint --fix ."
+	},
+	"dependencies": {
+		"@stylelint/postcss-css-in-js": "^0.37.2",
+		"postcss-syntax": "^0.36.2"
+	},
+	"peerDependencies": {
+		"stylelint": "^14.8.0"
+	},
+	"keywords": [
+		"stylelint",
+		"style",
+		"css"
+	]
+}
