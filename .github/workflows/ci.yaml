@@ -19,10 +19,16 @@ env:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: yarn
+      - name: Store Cache
+        id: store-cache
+        run: |-
+          result=$(yarn config get cacheFolder);
+          echo "::set-output name=result::${result}";
+          echo "$result";
       - name: Cache Modules
         uses: actions/cache@v3
         with:
-          path: ${{ needs.evaluate-workspaces.outputs.cache }}
+          path: ${{ steps.store-cache.outputs.result }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
