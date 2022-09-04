@@ -13,6 +13,7 @@ jobs:
     name: Evaluate Workspaces
     runs-on: ubuntu-latest
     outputs:
+      sha: ${{ steps.store-sha.outputs.result }}
       cache: ${{ steps.store-cache.outputs.result }}
       packages: ${{ steps.store-packages.outputs.result }}
     steps:
@@ -25,6 +26,29 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: yarn
+      - name: Store Last Successful Build
+        id: store-sha
+        run: |-
+          result=$( \
+            gh run list \
+              --json name,status,conclusion,event,headBranch,headSha \
+              --jq '
+                map(
+                  select(
+                    .name == "ci" and
+                    .status == "completed" and
+                    .conclusion == "success" and
+                    .event == "push" and
+                    .headBranch == "main"
+                  )
+                ) | min_by(.createdAt) | .headSha
+              '
+          );
+          echo "::set-output name=result::${result}";
+          echo "$result";
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.event.repository.name }}
       - name: Store Cache
         id: store-cache
         run: |-
