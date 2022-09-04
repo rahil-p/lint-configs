@@ -11,6 +11,7 @@
 	},
 	"license": "MIT",
 	"packageManager": "yarn@3.2.3",
+	"private": true,
 	"workspaces": [
 		"dev/*"
 	],
