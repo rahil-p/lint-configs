@@ -1,8 +1,9 @@
 name: ci
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - main
 
 env:
   NODE_VERSION: '16.13.2'
