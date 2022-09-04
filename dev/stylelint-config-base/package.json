@@ -1,6 +1,6 @@
 {
 	"name": "@rahil-p/stylelint-config-base",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Standard StyleLint rules",
 	"main": "index.js",
 	"homepage": "https://github.com/rahil-p/lint-configs/tree/main/dev/stylelint-config-base#readme",

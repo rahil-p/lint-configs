@@ -67,8 +67,14 @@ jobs:
       - name: Store Packages
         id: store-packages
         run: |-
+          if [ -z '${{ steps.store-sha.outputs.result }}' ]
+          then
+            args="--no-private --recursive";
+          else
+            args="--no-private --recursive --since=${{ steps.store-sha.outputs.result }}";
+          fi
           result=$( \
-            args="--no-private --recursive --since=${{ steps.store-sha.outputs.result }}" \
+            args="$args" \
             yarn run list \
               | jq -c \
           );
