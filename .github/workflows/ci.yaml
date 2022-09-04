@@ -8,88 +8,9 @@ on:
 env:
   NODE_VERSION: '16.13.2'
 
-jobs:
-  evaluate-workspaces:
-    name: Evaluate Workspaces
-    runs-on: ubuntu-latest
-    outputs:
-      sha: ${{ steps.store-sha.outputs.result }}
-      cache: ${{ steps.store-cache.outputs.result }}
-      packages: ${{ steps.store-packages.outputs.result }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: yarn
-      - name: Store Last Successful Build
-        id: store-sha
-        run: |-
-          result=$( \
-            gh run list \
-              --json name,status,conclusion,event,headBranch,headSha \
-              --jq '
-                map(
-                  select(
-                    .name == "ci" and
-                    .status == "completed" and
-                    .conclusion == "success" and
-                    .event == "push" and
-                    .headBranch == "main"
-                  )
-                ) | min_by(.createdAt) | .headSha
-              '
-          );
-          echo "::set-output name=result::${result}";
-          echo "$result";
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.event.repository.name }}
-      - name: Store Cache
-        id: store-cache
-        run: |-
-          result=$(yarn config get cacheFolder);
-          echo "::set-output name=result::${result}";
-          echo "$result";
-      - name: Cache Modules
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.store-cache.outputs.result }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: Install Modules
-        run: yarn install --immutable
-      - name: Store Packages
-        id: store-packages
-        run: |-
-          if [ -z '${{ steps.store-sha.outputs.result }}' ]
-          then
-            args="--no-private --recursive";
-          else
-            args="--no-private --recursive --since=${{ steps.store-sha.outputs.result }}";
-          fi
-          result=$( \
-            args="$args" \
-            yarn run list \
-              | jq -c \
-          );
-          echo "::set-output name=result::${result}";
-          echo "$result";
-
   publish-packages:
     name: Publish Packages
     runs-on: ubuntu-latest
-    needs:
-      - evaluate-workspaces
-    if: ${{ needs.evaluate-workspaces.outputs.packages != '[]' && needs.evaluate-workspaces.outputs.packages != '' }}
-    strategy:
-      matrix:
-        workspace: ${{ fromJSON(needs.evaluate-workspaces.outputs.packages) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -110,4 +31,4 @@ jobs:
       - name: Authenticate
         run: yarn config set npmScopes.rahil-p.npmAuthToken '${{secrets.NPM_TOKEN}}'
       - name: Publish Packages
-        run: yarn workspace ${{ matrix.workspace.name }} npm publish --access public
+        run: yarn workspaces foreach --exclude lint-configs --since --no-private npm publish --access public

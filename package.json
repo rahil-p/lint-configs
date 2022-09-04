@@ -17,8 +17,7 @@
 	"scripts": {
 		"lint": "yarn run lint:syncpack && yarn run lint:code",
 		"lint:code": "yarn workspaces foreach --exclude lint-configs ${args:-} run lint",
-		"lint:syncpack": "syncpack format",
-		"list": "yarn workspaces foreach --exclude lint-configs --parallel ${args:-} node -e \"const p = require('./package.json'); console.log(JSON.stringify({name: p.name, version: p.version, location: path.relative('$(pwd)', process.cwd()), private: !!p.private}));\" | sed 's/.*{/{/' | grep '^{' | jq -s"
+		"lint:syncpack": "syncpack format"
 	},
 	"devDependencies": {
 		"@rahil-p/eslint-config-base": "workspace:^",
