@@ -77,7 +77,7 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install Modules
         run: yarn install --immutable
+      - name: Authenticate
+        run: yarn config set npmScopes.rahil-p.npmAuthToken '${{secrets.NPM_TOKEN}}'
       - name: Publish Packages
-        run: yarn workspace ${{ matrix.workspace.name }} npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        run: yarn workspace ${{ matrix.workspace.name }} npm publish --access public
