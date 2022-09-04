@@ -8,6 +8,7 @@ on:
 env:
   NODE_VERSION: '16.13.2'
 
+jobs:
   publish-packages:
     name: Publish Packages
     runs-on: ubuntu-latest
