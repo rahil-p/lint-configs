@@ -1,6 +1,6 @@
 {
 	"name": "lint-configs",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Configurations for ESLint and StyleLint",
 	"homepage": "https://github.com/rahil-p/lint-configs#readme",
 	"repository": "rahil-p/lint-configs.git",

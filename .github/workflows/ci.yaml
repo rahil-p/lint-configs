@@ -35,7 +35,35 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install Modules
         run: yarn install --immutable
+      - name: Store Last Successful Build
+        id: store-sha
+        run: |-
+          result=$( \
+            gh run list \
+              --json name,status,conclusion,event,headBranch,headSha \
+              --jq '
+                map(
+                  select(
+                    .name == "ci" and
+                    .status == "completed" and
+                    .conclusion == "success" and
+                    .event == "push" and
+                    .headBranch == "main"
+                  )
+                ) | min_by(.createdAt) | .headSha
+              '
+          );
+          echo "::set-output name=result::${result}";
+          echo "$result";
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.event.repository.name }}
       - name: Authenticate
         run: yarn config set npmScopes.rahil-p.npmAuthToken '${{secrets.NPM_TOKEN}}'
       - name: Publish Packages
-        run: yarn workspaces foreach --exclude lint-configs --since --no-private npm publish --access public
+        run: |-
+          yarn workspaces foreach \
+            --exclude lint-configs \
+            --since=${{ steps.store-sha.outputs.result }} \
+            --no-private \
+            npm publish --access public
