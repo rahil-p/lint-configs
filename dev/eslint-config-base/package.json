@@ -1,6 +1,6 @@
 {
 	"name": "@rahil-p/eslint-config-base",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Standard ESLint rules",
 	"main": "index.js",
 	"homepage": "https://github.com/rahil-p/lint-configs/tree/main/dev/eslint-config-base#readme",
