@@ -12,7 +12,6 @@ module.exports = {
 		'react/jsx-boolean-value': 1,
 		'react/jsx-fragments': 1,
 		'react/jsx-no-constructed-context-values': 2,
-		'react/jsx-no-literals': [1, { noStrings: false, noAttributeStrings: true }],
 		'react/jsx-no-script-url': 2,
 		'react/jsx-no-useless-fragment': 1,
 		'react/jsx-pascal-case': [1, { allowNamespace: true, allowLeadingUnderscore: true }],
