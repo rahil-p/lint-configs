@@ -1,7 +1,5 @@
 # Rules for ESLint and StyleLint
 
-[![github-workflow](https://img.shields.io/github/workflow/status/rahil-p/lint-configs/ci?logo=github)](https://github.com/rahil-p/lint-configs/actions)
-
 ## ESLint
 
 ### [@rahil-p/eslint-config-base](dev/eslint-config-base)
